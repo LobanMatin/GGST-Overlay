@@ -1,16 +1,39 @@
-# This is a sample Python script.
+import tkinter as tk
+from overlay import Window
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+class MainApp(Window):
+    def __init__(self):
+
+        Window.__init__(self)
+
+        # set root of overlay
+        root = self.root
+        root.title("GGST Game Overlay")
+
+        # configure root of overlay
+        root.wm_attributes("-topmost", True)
+        root.overrideredirect(True)
+        root.state("zoomed")
+
+        # create frame to hold pages of overlay
+        main_frame = tk.Frame(root)
+        main_frame.pack(side="top", fill="both", expand=True)
+        main_frame.grid_rowconfigure(0, weight=1)
+        main_frame.grid_columnconfigure(0, weight=1)
+
+        # acquire window dimensions
+        root.update()
+        self.width = root.winfo_width()
+        self.height = root.winfo_height()
+
+        # dictionary to hold pages and their respective frames to switch between pages
+        self.page_frames = {}
+        page_list = []
+
+        for page in page_list:
+
+            page_frame = page()
+
+            self.page_frames[page] = page_frame
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
