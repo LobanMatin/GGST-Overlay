@@ -1,6 +1,11 @@
 import tkinter as tk
 from overlay import Window
 
+from pages.landing.landing import LandingPage
+
+
+
+
 class MainApp(Window):
     def __init__(self):
 
@@ -30,14 +35,15 @@ class MainApp(Window):
         self.page_frames = {}
         page_list = []
 
-        for page in page_list:
+        for pg in page_list:
             # create frame and add to dictionary
-            page_frame = page(main_frame, root)
+            page_frame = pg(self, main_frame, root)
+            page_frame.configure(bg="white") #are all backgrounds white?
             page_frame.grid(row=0, column=0, sticky="nsew")
-            self.page_frames[page] = page_frame
+            self.page_frames[pg] = page_frame
 
         # Show landing page on top at the start
-        page_to_top(LandingPage)
+        self.page_to_top(LandingPage)
         self.current_page = LandingPage
 
         # add functionality to adjust overlay translucency
@@ -78,7 +84,7 @@ class MainApp(Window):
         root.bind("<Control-r>", force_quit)
 
         # helper function to raise desired frame to top
-        def page_to_top(self, page = self.current_page):
+        def page_to_top(page=self.current_page): #MAKE THIS TAKE TEXT ARGUMENT INSTEAD
             if page != OverlayHide:
                 self.current_page = page
             page.tkraise()
