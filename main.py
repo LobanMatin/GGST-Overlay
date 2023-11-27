@@ -1,6 +1,7 @@
 import tkinter as tk
 from overlay import Window
 
+from pages.character.character import CharMenu
 from pages.landing.landing import LandingPage
 from pages.select.select import CharSelect
 
@@ -32,8 +33,8 @@ class MainApp(Window):
 
         # dictionary to hold pages and their respective frames to switch between pages
         self.page_frames = {}
-        name_list = ["LandingPage", "CharSelect"]
-        frame_list = [LandingPage, CharSelect]
+        name_list = ["LandingPage", "CharSelect", "CharMenu"]
+        frame_list = [LandingPage, CharSelect, CharMenu]
         for i in range(len(name_list)):
             # create frame and add to dictionary
             page_frame = frame_list[i](self, main_frame, root)
