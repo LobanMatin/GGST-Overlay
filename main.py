@@ -1,6 +1,9 @@
 import tkinter as tk
 from overlay import Window
 
+from pages.landing.landing import LandingPage
+
+
 class MainApp(Window):
     def __init__(self):
 
@@ -28,67 +31,66 @@ class MainApp(Window):
 
         # dictionary to hold pages and their respective frames to switch between pages
         self.page_frames = {}
-        page_list = []
-
-        for page in page_list:
+        name_list = ["LandingPage"]
+        frame_list = [LandingPage]
+        for i in range(len(name_list)):
             # create frame and add to dictionary
-            page_frame = page(main_frame, root)
+            page_frame = frame_list[i](self, main_frame, root)
+            page_frame.configure(bg="white")  # are all backgrounds white?
             page_frame.grid(row=0, column=0, sticky="nsew")
-            self.page_frames[page] = page_frame
+            self.page_frames[name_list[i]] = page_frame
 
         # Show landing page on top at the start
-        page_to_top(LandingPage)
-        self.current_page = LandingPage
+        self.page_to_top("LandingPage")
+        self.current_page = "LandingPage"
+
+        # helper function to raise desired frame to top
 
         # add functionality to adjust overlay translucency
         self.alpha = 1
         root.attributes("-alpha", self.alpha)
+        root.bind("<Control-q>", self.trans_plus)
+        root.bind("<Control-w>", self.trans_minus)
 
-        def trans_plus(e):
-            if self.alpha <= 0.75:
-                self.alpha += 0.25
-                root.attributes("-alpha", self.alpha)
-            return
-
-        def trans_minus(e):
-            if self.alpha >= 0.25:
-                self.alpha -= 0.25
-                root.attributes("-alpha", self.alpha)
-            return
-
-        root.bind("<Control-q>", trans_plus)
-        root.bind("<Control-w>", trans_minus)
-
-
-        # add overlay toggle funtionality
+        # add overlay toggle functionality
         self.showing = True
 
-        def overlay_toggle(e):
-            if self.showing:
-                self.showing = False
-                page_to_top(OverlayHide)
-            else:
-                self.showing = True
-                page_to_top()
+        # quit functionality
+        root.bind("<Control-r>", self.force_quit)
 
-        # add force quit functionality
-        def force_quit(e):
-            self.root.quit()
+    def trans_plus(self, e):
+        if self.alpha <= 0.75:
+            self.alpha += 0.25
+            self.root.attributes("-alpha", self.alpha)
+        return
 
-        root.bind("<Control-r>", force_quit)
+    def trans_minus(self, e):
+        if self.alpha >= 0.25:
+            self.alpha -= 0.25
+            self.root.attributes("-alpha", self.alpha)
+        return
 
-        # helper function to raise desired frame to top
-        def page_to_top(self, page = self.current_page):
-            if page != OverlayHide:
-                self.current_page = page
-            page.tkraise()
-            return
+    def overlay_toggle(self, e):
+        if self.showing:
+            self.showing = False
+            self.page_to_top(LandingPage)  # CHANGE TO OVERLAY HIDE LATER
+        else:
+            self.showing = True
+            self.page_to_top()
+
+    # add force quit functionality
+    def force_quit(self, e):
+        self.root.quit()
+
+    def page_to_top(self, page=""):  # MAKE THIS TAKE TEXT ARGUMENT INSTEAD
+        if page == "":  # CHANGE TO OVERLAY HIDE LATER
+            page = self.current_page
+        self.page_frames[page].tkraise()
+        self.current_page = page
+        return
 
 
 # main loop to run application
 if __name__ == "__main__":
     overlay_app = MainApp()
     Window.launch()
-
-
-
