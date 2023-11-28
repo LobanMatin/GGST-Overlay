@@ -7,7 +7,7 @@ cursor = connection.cursor()
 # create characters table
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS characters (
-    character_name TEXT
+    character_name TEXT PRIMARY KEY
 )       
 """)
 

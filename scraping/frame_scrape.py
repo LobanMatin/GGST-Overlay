@@ -12,7 +12,7 @@ cursor = connection.cursor()
 # create frame data table
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS frame_data (
-    input TEXT,
+    input TEXT PRIMARY KEY,
     move_name TEXT,
     damage INTEGER,
     guard TEXT,
@@ -21,7 +21,8 @@ CREATE TABLE IF NOT EXISTS frame_data (
     recovery INTEGER,
     on_block INTEGER,
     on_hit INTEGER,
-    character_name TEXT
+    character TEXT,
+    FOREIGN KEY (character) REFERENCES characters(character_name)
 )       
 """)
 
