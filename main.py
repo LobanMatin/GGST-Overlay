@@ -1,6 +1,7 @@
 import tkinter as tk
 from overlay import Window
 
+from draggable.overlay_hide import OverlayHide
 from pages.character.character import CharMenu
 from pages.frame.frame import FrameData
 from pages.landing.landing import LandingPage
@@ -35,8 +36,8 @@ class MainApp(Window):
 
         # dictionary to hold pages and their respective frames to switch between pages
         self.page_frames = {}
-        name_list = ["LandingPage", "CharSelect", "CharMenu", "FrameData"]
-        frame_list = [LandingPage, CharSelect, CharMenu, FrameData]
+        name_list = ["LandingPage", "CharSelect", "CharMenu", "FrameData", "OverlayHide"]
+        frame_list = [LandingPage, CharSelect, CharMenu, FrameData, OverlayHide]
         for i in range(len(name_list)):
             # create frame and add to dictionary
             page_frame = frame_list[i](self, main_frame, root)
@@ -58,6 +59,7 @@ class MainApp(Window):
 
         # add overlay toggle functionality
         self.showing = True
+        root.bind("<Control-e>", self.overlay_toggle)
 
         # quit functionality
         root.bind("<Control-r>", self.force_quit)
@@ -77,10 +79,10 @@ class MainApp(Window):
     def overlay_toggle(self, e):
         if self.showing:
             self.showing = False
-            self.page_to_top(LandingPage)  # CHANGE TO OVERLAY HIDE LATER
+            self.page_to_top()
         else:
             self.showing = True
-            self.page_to_top()
+            self.page_to_top(self.current_page)
 
     # add force quit functionality
     def force_quit(self, e):
@@ -88,7 +90,8 @@ class MainApp(Window):
 
     def page_to_top(self, page=""):  # MAKE THIS TAKE TEXT ARGUMENT INSTEAD
         if page == "":  # CHANGE TO OVERLAY HIDE LATER
-            page = self.current_page
+            self.page_frames["OverlayHide"].tkraise()
+            return
         self.page_frames[page].tkraise()
         self.current_page = page
         return
