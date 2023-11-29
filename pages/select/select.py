@@ -7,6 +7,8 @@ class CharSelect(tk.Frame):
     def __init__(self, controller, parent, root):
         tk.Frame.__init__(self, parent)
 
+        self.controller = controller
+
         # images need to be global variables
         global jacko_img
 
@@ -23,5 +25,10 @@ class CharSelect(tk.Frame):
 
         # character buttons
         jacko_button = tk.Button(button_frame, image=jacko_img, width=button_dims[0]*5, height=button_dims[0]*5,
-                                 command=lambda: controller.page_to_top("CharMenu"))
+                                 command=lambda: self.change_char("Jack-O"))
         jacko_button.place(relx=0.5, rely=0.5, anchor="center")
+
+    def change_char(self, char):
+        self.controller.select_character = char
+        self.controller.page_to_top("CharMenu")
+        return
