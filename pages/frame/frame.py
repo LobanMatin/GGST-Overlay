@@ -2,6 +2,8 @@ import sqlite3
 import tkinter as tk
 from tkinter import ttk
 
+from converter.converter import move_to_img
+
 
 class FrameData(tk.Frame):
     def __init__(self, controller, parent, root):
@@ -26,7 +28,6 @@ class FrameData(tk.Frame):
         hv_frame.grid(row=1, column=1, sticky="nsew")
         scroll_hor = ttk.Scrollbar(hv_frame, orient="horizontal", command=data_canvas.xview)
         scroll_hor.pack(fill="x", expand=True, side="bottom")
-
 
         data_canvas.configure(xscrollcommand=scroll_hor.set)
         data_canvas.bind("<Configure>", lambda e: data_canvas.configure(scrollregion=data_canvas.bbox("all")))
@@ -80,24 +81,18 @@ class FrameData(tk.Frame):
                 input_frame.grid(row=table_row + 1, column=i, sticky="nsew")
                 input_canvas = tk.Canvas(input_frame, width=CELL_DIMS[0], height=CELL_DIMS[1])
 
-                if move[i] == None:
+                if not(move[i]):
                     cell_text = "N/A"
                 else:
                     cell_text = move[i]
 
-                # if i == 0:
-                #     move_to_img(cell_text, input_canvas)
-                # else:
-                #     input_canvas.create_text(controller.width*TEXT_PADDING, controller.width*TEXT_PADDING,
-                #                              text=cell_text, anchor="nw")
+                if i == 0:
+                    move_to_img(cell_text, input_canvas)
+                else:
+                    input_canvas.create_text(controller.width * TEXT_PADDING, controller.width * TEXT_PADDING,
+                                             text=cell_text, anchor="nw")
 
                 input_canvas.create_text(controller.width * TEXT_PADDING, controller.width * TEXT_PADDING,
                                          text=cell_text, anchor="nw")
 
                 input_canvas.pack()
-
-
-
-
-
-
