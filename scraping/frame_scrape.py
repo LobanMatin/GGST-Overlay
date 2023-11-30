@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS frame_data (
 )       
 """)
 
+# open webpage using selenium
 driver = webdriver.Chrome()
 url = "https://www.dustloop.com/w/GGST/" + current_character + "/Frame_Data"
 driver.get(url)
@@ -50,16 +51,16 @@ for i in range(3):
     table = driver.find_element("id", "DataTables_Table_" + str(i))
 
     if i == 0:
-        span = 9
+        SPAN = 9
     else:
-        span = 10
+        SPAN = 10
 
     # acquire all the relevant rows
     data = table.find_elements("tag name", "tr")[2:]
 
     # collect data from each row in the table
     for row in data:
-        elements = row.find_elements("tag name", "td")[1:span]
+        elements = row.find_elements("tag name", "td")[1:SPAN]
         for y in range(len(elements)):
             elements[y] = elements[y].text
 
