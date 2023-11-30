@@ -22,7 +22,7 @@ class CharMenu(tk.Frame):
                               pady=round(button_dims[1] / 2), command=lambda: controller.page_to_top("FrameData"))
         fd_button.grid(row=0, column=0, pady=25)
 
-        # combos button
+        # data button
         com_button = tk.Button(button_frame, text="Combos", width=button_dims[0], height=button_dims[1],
                                pady=round(button_dims[1] / 2), command=lambda: controller.page_to_top("Combos"))
         com_button.grid(row=1, column=0, pady=25)

@@ -11,7 +11,7 @@ cursor = connection.cursor()
 
 # create frame data table
 cursor.execute("""
-CREATE TABLE IF NOT EXISTS combos (
+CREATE TABLE IF NOT EXISTS data (
     combo TEXT PRIMARY KEY,
     position TEXT,
     damage INTEGER,
@@ -27,7 +27,7 @@ driver.get(url)
 driver.maximize_window()
 time.sleep(3)
 
-# select optimal combos
+# select optimal data
 for i in range(2, 6):
     driver.find_element("id", "tab-Optimal-" + str(i)).click()
 
@@ -49,7 +49,7 @@ for i in range(len(rows)):
 
 # add full data to database
 for row_data in combo_data:
-    cursor.execute('INSERT INTO combos VALUES(?, ?, ?, ?)', row_data)
+    cursor.execute('INSERT INTO data VALUES(?, ?, ?, ?)', row_data)
 
 connection.commit()
 connection.close()
