@@ -1,7 +1,5 @@
 import sqlite3
 import tkinter as tk
-
-from converter.converter import move_to_img
 from pages.data.data_pages import DataPage
 
 

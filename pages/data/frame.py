@@ -17,13 +17,8 @@ class FrameData(DataPage):
 
         # add headings to page
         for i in range(len(headings)):
-            heading_frame = tk.LabelFrame(self.list_frame)
+            heading_frame = tk.LabelFrame(self.list_frame, text=headings[i], height=20, width=200)
             heading_frame.grid(row=0, column=i)
-
-            heading_canvas = tk.Canvas(heading_frame, width=CELL_DIMS[0], height=CELL_DIMS[1])
-            heading_canvas.create_text(controller.width * TEXT_PADDING, controller.width * TEXT_PADDING,
-                                       text=headings[i], anchor="nw")
-            heading_canvas.pack()
 
         # retrieve data from database
         connection = sqlite3.connect("C:/Users/Loban Matin/PycharmProjects/GGST_Overlay/scraping/overlay.db")
@@ -35,23 +30,30 @@ class FrameData(DataPage):
         frame_data = cursor.fetchall()
 
         # print frame data row by row
-        for table_row in range(len(frame_data)):
-            move = frame_data[table_row][:-1]
-
-            for i in range(len(move)):
-                input_frame = tk.LabelFrame(self.list_frame)
-                input_frame.grid(row=table_row + 1, column=i, sticky="nsew")
-                input_canvas = tk.Canvas(input_frame, width=CELL_DIMS[0], height=CELL_DIMS[1])
-
-                if not(move[i]):
-                    cell_text = "N/A"
+        for table_row in range(-1, len(frame_data)):
+            for i in range(len(headings)):
+                input_canvas = tk.Canvas(self.list_frame)
+                if table_row == -1:
+                    input_canvas.create_text(controller.width * TEXT_PADDING, controller.width * TEXT_PADDING,
+                                             text=headings[i], anchor="nw")
                 else:
-                    cell_text = move[i]
+                    move = frame_data[table_row][:-1]
+
+                    if not (move[i]):
+                        cell_text = "N/A"
+                    else:
+                        cell_text = move[i]
+
+                    if i == 0:
+                        move_to_img(cell_text, input_canvas)
+                    else:
+                        input_canvas.create_text(controller.width * TEXT_PADDING, controller.width * TEXT_PADDING,
+                                                 text=cell_text, anchor="nw")
 
                 if i == 0:
-                    move_to_img(cell_text, input_canvas)
+                    new_width = 300
                 else:
-                    input_canvas.create_text(controller.width * TEXT_PADDING, controller.width * TEXT_PADDING,
-                                             text=cell_text, anchor="nw")
+                    new_width = 10
 
-                input_canvas.pack()
+                input_canvas.grid(row=table_row + 1, column=i, sticky="nsew")
+                input_canvas.configure(highlightthickness=1, width=0, height=30, highlightbackground="black")

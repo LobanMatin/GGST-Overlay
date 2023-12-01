@@ -50,26 +50,24 @@ def move_to_img(move_string, canvas):
     col_no = 0
 
     for letter in move_string:
+        panel = None
         if letter in num_to_img:
             panel = tk.Label(canvas, image=num_to_img[letter])
             panel.image = num_to_img[letter]
-            panel.grid(row=0, column=col_no)
-
-        if letter in attack_to_img:
+        elif letter in attack_to_img:
             panel = tk.Label(canvas, image=attack_to_img[letter])
             panel.image = attack_to_img[letter]
-            panel.grid(row=0, column=col_no)
-        if letter == "/":
+        elif letter == "/":
             panel = tk.Label(canvas, text="/")
-            panel.grid(row=0, column=col_no)
-        if letter == "]":
+        elif letter == "]":
             panel = tk.Label(canvas, text="(Hold)")
-            panel.grid(row=0, column=col_no)
-        if letter == "c":
+        elif letter == "c":
             panel = tk.Label(canvas, text="(Close)")
-            panel.grid(row=0, column=col_no)
-        if letter == "f":
+        elif letter == "f":
             panel = tk.Label(canvas, text="(Far)")
-            panel.grid(row=0, column=col_no)
+        else:
+            panel = tk.Label(canvas, text=letter)
+
+        panel.pack(padx=5, pady=5, side="left")
         col_no += 1
     return

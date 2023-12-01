@@ -29,10 +29,6 @@ class DataPage(tk.Frame):
         data_canvas.configure(xscrollcommand=scroll_hor.set)
         data_canvas.bind("<Configure>", lambda e: data_canvas.configure(scrollregion=data_canvas.bbox("all")))
 
-        # create frame for data within scroll region
-        self.list_frame = tk.LabelFrame(data_canvas)
-        data_canvas.create_window((0, 0), window=self.list_frame, anchor="nw")
-
         # back button
         button_frame = tk.LabelFrame(self, bd=0, bg="white")
         button_frame.grid(row=0, column=0, sticky="n")
@@ -40,6 +36,10 @@ class DataPage(tk.Frame):
         back_button = tk.Button(button_frame, text="Back", width=button_dims[0], height=button_dims[1], bd=0,
                                 command=lambda: controller.page_to_top("CharMenu"))
         back_button.pack()
+
+        # create frame for data within scroll region
+        self.list_frame = tk.LabelFrame(data_canvas)
+        data_canvas.create_window((0, 0), window=self.list_frame, anchor="nw")
 
         # configure grid layout
         self.columnconfigure(1, weight=1)
