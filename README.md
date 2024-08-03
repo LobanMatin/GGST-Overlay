@@ -7,10 +7,16 @@ The data can then be accessed and displayed as a overlay.
 The overlay can also be minimised and maximised via a keyboard shortcut to allow for quick access even when in-game.
 
 ## Showcase
-
+Title Page
 ![Imgur Image](https://imgur.com/rLMxLiF.jpg)
+
+Frame Data Page (Data read from database)
 ![Imgur Image](https://imgur.com/Ba02Hae.jpg)
+
+Minimised overlay, can be dragged using mouse and maximised using a keyboard shortcut
 ![Imgur Image](https://imgur.com/SgskoDV.jpg)
+
+SQL Database with frame data that has been web scraped
 ![Imgur Image](https://imgur.com/nszyQIM.jpg)
 
 
