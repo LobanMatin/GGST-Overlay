@@ -7,8 +7,10 @@ The data can then be accessed and displayed as a overlay.
 The overlay can also be minimised and maximised via a keyboard shortcut to allow for quick access even when in-game.
 
 ## Showcase
-https://imgur.com/rLMxLiF
-https://imgur.com/Ba02Hae
-https://imgur.com/SgskoDV
-https://imgur.com/nszyQIM
+
+![Imgur Image](https://imgur.com/rLMxLiF.jpg)
+![Imgur Image](https://imgur.com/Ba02Hae.jpg)
+![Imgur Image](https://imgur.com/SgskoDV.jpg)
+![Imgur Image](https://imgur.com/nszyQIM.jpg)
+
 
